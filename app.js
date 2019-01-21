@@ -10,24 +10,6 @@ fs.createReadStream("./test.csv")
   .pipe(csv())
   .on("headers", headers => {
     this.headers = headers;
-    // results.push({
-    //   nom: this.headers[2],
-    //   label1: this.headers[3] + 1,
-    //   label2: this.headers[3] + 2,
-    //   label3: this.headers[3] + 3,
-    //   label4: this.headers[3] + 4,
-    //   label5: this.headers[3] + 5,
-    //   Tel1: "Tél1",
-    //   Tel2: "Tél2",
-    //   Tel3: "Tél3",
-    //   Tel4: "Tél4",
-    //   Tel5: "Tél5",
-    //   Email: "E-Mail",
-    //   Website: "Website",
-    //   Address: this.headers[5],
-    //   City: this.headers[6]
-    // });
-    // console.log(results);
   })
   .on("data", row => {
     //perform the operation
@@ -61,20 +43,15 @@ fs.createReadStream("./test.csv")
         Address: row.adresse ? row.adresse.trim() : '',
         City: row.ville ? row.ville.trim() : ''
       };
-      // if (row.abonnesID && row.ID && row.nom) {
         fillContactWithData(existingContact, row);
-        // console.log(this.index);
         results.push(existingContact);
         this.index = results.length;
         console.log(this.index);
-      // }
     }
 
   })
   .on("end", () => {
     // write to file and update csv after manipulations
-    // console.log(results);
-
     (async() => {
       var resultsCsv = new ObjectsToCsv(results);
       // Save to file:
